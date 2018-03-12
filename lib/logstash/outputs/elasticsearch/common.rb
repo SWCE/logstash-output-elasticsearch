@@ -43,7 +43,7 @@ module LogStash; module Outputs; class ElasticSearch;
         :_id => @document_id ? event.sprintf(@document_id) : nil,
         :_index => event.sprintf(@index),
         :_type => get_event_type(event),
-        :_routing => @routing ? event.sprintf(@routing) : nil
+        :routing => @routing ? event.sprintf(@routing) : nil
       }
 
       if @pipeline
@@ -55,7 +55,7 @@ module LogStash; module Outputs; class ElasticSearch;
           join_value = event.get(@join_field)
           parent_value = event.sprintf(@parent)
           event.set(@join_field, { "name" => join_value, "parent" => parent_value })
-          params[:_routing] = event.sprintf(@parent)
+          params[:routing] = event.sprintf(@parent)
         else
           params[:parent] = event.sprintf(@parent)
         end
@@ -64,7 +64,7 @@ module LogStash; module Outputs; class ElasticSearch;
       if action == 'update'
         params[:_upsert] = LogStash::Json.load(event.sprintf(@upsert)) if @upsert != ""
         params[:_script] = event.sprintf(@script) if @script != ""
-        params[:_retry_on_conflict] = @retry_on_conflict
+        params[:retry_on_conflict] = @retry_on_conflict
       end
 
       if @version

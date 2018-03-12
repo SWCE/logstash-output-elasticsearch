@@ -355,7 +355,7 @@ describe LogStash::Outputs::ElasticSearch do
 
       it "should not set the retry_on_conflict parameter when creating an event_action_tuple" do
         action, params, event_data = subject.event_action_tuple(event)
-        expect(params).not_to include({:_retry_on_conflict => num_retries})
+        expect(params).not_to include({:retry_on_conflict => num_retries})
       end
     end
 
@@ -364,7 +364,7 @@ describe LogStash::Outputs::ElasticSearch do
 
       it "should set the retry_on_conflict parameter when creating an event_action_tuple" do
         action, params, event_data = subject.event_action_tuple(event)
-        expect(params).to include({:_retry_on_conflict => num_retries})
+        expect(params).to include({:retry_on_conflict => num_retries})
       end
     end
 
@@ -373,7 +373,7 @@ describe LogStash::Outputs::ElasticSearch do
 
       it "should set the retry_on_conflict parameter when creating an event_action_tuple" do
         action, params, event_data = subject.event_action_tuple(event)
-        expect(params).to include({:_retry_on_conflict => num_retries})
+        expect(params).to include({:retry_on_conflict => num_retries})
         expect(action).to eq("update")
       end
     end
